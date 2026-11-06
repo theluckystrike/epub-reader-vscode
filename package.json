@@ -1,0 +1,205 @@
+{
+  "name": "zovo-epub-reader",
+  "displayName": "EPUB Reader & EPUB Viewer",
+  "description": "Read EPUB books in VS Code. Paged or scrolled reading, table of contents, search, footnote popups, light, sepia and dark themes, and it remembers your page. Book scripts never run.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1D2B4A",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": ">=18"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "epub",
+    "epub reader",
+    "epub viewer",
+    "ebook",
+    "ebook reader",
+    "e-reader",
+    "book reader",
+    "reader",
+    "book",
+    "epub3",
+    "epub2",
+    "ncx",
+    "opf",
+    "novel",
+    "reading",
+    "read books",
+    "dark mode",
+    "sepia",
+    "footnotes",
+    "table of contents",
+    "epub to markdown",
+    "markdown export",
+    "epub preview",
+    "ebook viewer",
+    "offline",
+    "ibooks",
+    "kobo",
+    "calibre",
+    "pandoc",
+    "publishing"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "epubReader.book",
+        "displayName": "EPUB Reader",
+        "selector": [
+          { "filenamePattern": "*.epub" }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      { "command": "epubReader.openWalkthrough", "title": "Get Started", "category": "EPUB Reader" },
+      { "command": "epubReader.openWith", "title": "Open in EPUB Reader", "category": "EPUB Reader" },
+      { "command": "epubReader.search", "title": "Search in Book", "category": "EPUB Reader" },
+      { "command": "epubReader.showInfo", "title": "Show Book Info", "category": "EPUB Reader" },
+      { "command": "epubReader.exportChapter", "title": "Export Chapter to Markdown", "category": "EPUB Reader" },
+      { "command": "epubReader.supportDeveloper", "title": "Support the developer", "category": "EPUB Reader" },
+      { "command": "epubReader.moreViewers", "title": "More free viewers", "category": "EPUB Reader" }
+    ],
+    "menus": {
+      "explorer/context": [
+        { "command": "epubReader.openWith", "when": "resourceExtname =~ /^\\.epub$/i", "group": "navigation@9" }
+      ],
+      "commandPalette": [
+        { "command": "epubReader.openWith", "when": "resourceExtname =~ /^\\.epub$/i" },
+        { "command": "epubReader.search", "when": "activeCustomEditorId == epubReader.book" },
+        { "command": "epubReader.showInfo", "when": "activeCustomEditorId == epubReader.book" },
+        { "command": "epubReader.exportChapter", "when": "activeCustomEditorId == epubReader.book" }
+      ]
+    },
+    "configuration": {
+      "title": "EPUB Reader",
+      "properties": {
+        "epubReader.flow": {
+          "type": "string",
+          "enum": ["paged", "scrolled"],
+          "enumDescriptions": ["Turn pages like a book. Wide editors show two columns.", "Scroll each chapter as one long page."],
+          "default": "paged",
+          "description": "How chapters are laid out. The toolbar can switch it."
+        },
+        "epubReader.theme": {
+          "type": "string",
+          "enum": ["auto", "light", "sepia", "dark"],
+          "enumDescriptions": ["Use the colors of your VS Code theme.", "Dark text on off-white.", "Brown text on warm paper.", "Light text on near-black."],
+          "default": "auto",
+          "description": "Reading colors."
+        },
+        "epubReader.fontSize": {
+          "type": "integer",
+          "default": 18,
+          "minimum": 10,
+          "maximum": 40,
+          "description": "Text size in pixels. The A− and A+ buttons change it."
+        },
+        "epubReader.fontFamily": {
+          "type": "string",
+          "enum": ["serif", "sans"],
+          "default": "serif",
+          "description": "Book font. Serif is a book face, sans uses the VS Code interface font."
+        },
+        "epubReader.footnotePopups": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show footnotes in a small popup when you click a note number, and hide EPUB 3 footnote boxes from the page."
+        },
+        "epubReader.rememberPosition": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open each book where you stopped reading. Positions stay on this computer."
+        },
+        "epubReader.maxFileMB": {
+          "type": "number",
+          "default": 200,
+          "minimum": 1,
+          "maximum": 2048,
+          "description": "Books up to this size are opened. Larger files show a message and are not read."
+        },
+        "epubReader.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask one time for a Marketplace rating after you have used EPUB Reader for a few days. You can answer \"Later\" or \"Don't ask again\". Nothing is sent anywhere."
+        },
+        "epubReader.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Sponsor and More free viewers links at the bottom of the viewer. The change shows in files you open next. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "epubReader.start",
+        "title": "Get started with EPUB Reader",
+        "description": "Read EPUB books in a VS Code tab.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open an EPUB book",
+            "description": "Click any .epub file in the Explorer. Use the arrow keys, the page edges or the mouse wheel to turn pages.\n[Find an EPUB file](command:workbench.action.quickOpen?%5B%22.epub%22%5D)",
+            "media": {
+              "image": "images/paged-sepia.png",
+              "altText": "A sample book in EPUB Reader, paged in two columns with the sepia theme and the table of contents open."
+            },
+            "completionEvents": ["onCommand:workbench.action.quickOpen"]
+          },
+          {
+            "id": "find",
+            "title": "Search and footnotes",
+            "description": "Type in the search box and press Enter to list every match. Press Enter again for the next one. Click a note number to read the footnote in a popup.",
+            "media": { "markdown": "walkthrough/search.md" }
+          },
+          {
+            "id": "settings",
+            "title": "Theme, size and layout",
+            "description": "Pick a theme, the text size and paged or scrolled reading. Your choice is kept for every book.\n[Open settings](command:workbench.action.openSettings?%5B%22epubReader%22%5D)",
+            "media": { "markdown": "walkthrough/settings.md" },
+            "completionEvents": ["onCommand:workbench.action.openSettings"]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build.js --production",
+    "test": "node scripts/build.js --production && node --test \"test/*.test.js\"",
+    "samples": "node scripts/make-samples.js samples",
+    "package": "npm run build && npx -y @vscode/vsce package --no-dependencies -o dist/"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "fflate": "0.8.2"
+  },
+  "homepage": "https://github.com/theluckystrike/epub-reader-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/theluckystrike/epub-reader-vscode/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/epub-reader-vscode"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike"
+  }
+}
