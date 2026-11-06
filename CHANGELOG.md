@@ -12,3 +12,5 @@
 - Book details with the cover, author, language and ISBN.
 - Export a chapter to Markdown, with its images.
 - Book scripts, forms and remote resources are removed, and the webview policy blocks them too.
+- The "More free viewers" list and the README list now show the 15 Zovo extensions on the Marketplace under their current names, and 11 that are coming soon.
+- Extensions for related files now come first, starting with PDF Viewer & PDF Reader with Dark Mode and DOCX Viewer & Word Viewer with Dark Mode.
