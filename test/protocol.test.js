@@ -101,7 +101,7 @@ test('source scan: the extension host has no network modules and writes files on
 test('manifest: custom editor, settings, commands, 30 keywords, short unique name', () => {
   assert.equal(pkg.name, 'zovo-epub-reader');
   assert.equal(pkg.publisher, 'zovo');
-  assert.equal(pkg.version, '0.1.0');
+  assert.match(pkg.version, /^\d+\.\d+\.\d+$/); // monetize.py rollouts bump it
   assert.equal(pkg.license, 'MIT');
   assert.equal(pkg.engines.vscode, '^1.90.0');
   assert.ok(pkg.displayName.length <= 45 && /^EPUB Reader/.test(pkg.displayName));
