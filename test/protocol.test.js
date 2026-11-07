@@ -104,7 +104,7 @@ test('manifest: custom editor, settings, commands, 30 keywords, short unique nam
   assert.match(pkg.version, /^\d+\.\d+\.\d+$/); // monetize.py rollouts bump it
   assert.equal(pkg.license, 'MIT');
   assert.equal(pkg.engines.vscode, '^1.90.0');
-  assert.ok(pkg.displayName.length <= 45 && /^EPUB Reader/.test(pkg.displayName));
+  assert.ok(pkg.displayName.length <= 45 && /^EPUB Viewer/.test(pkg.displayName));
   assert.equal(pkg.keywords.length, 30);
   assert.equal(new Set(pkg.keywords).size, 30);
   const ed = pkg.contributes.customEditors[0];

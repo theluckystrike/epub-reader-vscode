@@ -1,4 +1,4 @@
-# EPUB Reader & EPUB Viewer
+# EPUB Viewer, EPUB Reader & Ebook Reader
 
 Read EPUB books in a VS Code tab, with pages or scrolling, a table of contents, search, footnote popups and a sepia or dark theme.
 
